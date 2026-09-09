@@ -1,4 +1,4 @@
-# 輕量級自適應蜜碼防禦系統
+# 輕量級自適應防禦系統
 
 # Lightweight_Adaptive_Honeywords_Defense_System
 
