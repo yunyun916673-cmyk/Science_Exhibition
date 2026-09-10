@@ -137,7 +137,7 @@ void puff(string& s)
 	s=test;
 	return;
 }
-void func(string &s,string &tag)
+bool func(string &s,string &tag)
 {
 	if (tag==":") Org(s);
     else if (tag=="l") l(s);
@@ -221,5 +221,6 @@ void func(string &s,string &tag)
 	else if (tag=="<") tofront(s);
 	else if (tag==">") toback(s);
 	else if (tag=="q") puff(s);
-    return;
+    else if (tag=="end") return true;
+	else return false;
 }
