@@ -1,25 +1,23 @@
-#include "codon_mutation_functions.cpp"
+#include "codon_mutation_functions.cpp" 
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 using ll=long long;
 using namespace std;
-int main()
+vector<string> run_best64(string S) 
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    string S; cin>>S; string org=S;
+    vector<string> results;
+    string org=S; 
     ifstream password("transed_best64.rule");
-    ofstream fout("passwords_best64_result.txt");
-    cin.rdbuf(password.rdbuf());
     string line;
-    while (cin>>line)
+    while (password>>line) 
     {
         if (func(S,line))
         {
-            fout<<S<<"\n";
+            results.push_back(S);
             S=org;
         }
     }
-    return 0;
+    return results; 
 }
