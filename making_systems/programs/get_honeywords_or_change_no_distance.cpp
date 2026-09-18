@@ -95,6 +95,7 @@ pair<vector<string>,ll> get_honeywords(const string& S,bool is_set)
     uniform_int_distribution<long long> dist(1,how_many);
     ll where=dist(gen);
     ll pos=0LL;
+    shuffle(temp.begin(),temp.end(),gen);
     for(ll i=0LL;i<how_many;i++)
     {
         answers.push_back(temp[i]);
