@@ -5,6 +5,7 @@
 #include <random>
 #include <algorithm>
 #include <utility>
+#include <unordered_set>
 #include "leven.cpp"
 #include "webdist.cpp"
 #include "transing_best64.cpp"
@@ -105,18 +106,22 @@ pair<vector<string>,ll> get_honeywords(const string& S,bool is_set)
     ll val=dist(gen);
     ll where=dist(gen);
     ll pos=0LL;
+    unordered_set<string> before;
     sort(finall.begin(),finall.end(),vers_lv);
     for(ll i=0LL;i<val;i++)
     {
         answers.push_back(finall[i].word);
+        before.insert(finall[i].word);
         pos++;
         if(pos==where) answers.push_back(S);
     }
     sort(finall.begin(),finall.end(),vers_wd);
-    for(ll i=0LL;i<how_many-val;i++)
+    ll curr=0LL;
+    for(ll i=0LL;i<(ll)finall.size()&&curr<(how_many-val);i++)
     {
+        if (before.count(finall[i].word)) continue; 
         answers.push_back(finall[i].word);
-        pos++;
+        curr++; pos++;
         if(pos==where) answers.push_back(S);
     }
     return {answers,where};
