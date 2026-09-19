@@ -48,10 +48,11 @@ struct markov
    bool bn=false,bl=false,bu=false,bs=false;
    for (char &ch:S)
    {
-    if (nums&&isdigit(ch)) bn=true;
-    if (lowr&&islower(ch)) bl=true;
-    if (uppr&&isupper(ch)) bu=true;
-    if (specl&&!isdigit(ch)&&!islower(ch)&&!isupper(ch)) bs=true;
+    unsigned char uch=(unsigned char)ch;
+    if (nums&&isdigit(uch)) bn=true;
+    if (lowr&&islower(uch)) bl=true;
+    if (uppr&&isupper(uch)) bu=true;
+    if (specl&&!isdigit(uch)&&!islower(uch)&&!isupper(uch)) bs=true;
    }
    if (nums&&!bn) tag=true;
    if (lowr&&!bl) tag=true;
@@ -113,8 +114,8 @@ vector<string> run_traditional(const string& S,ll length,bool nums,bool lowr,boo
  while (pos<how_many)
  {
   auto ts=cursion.getting(length,nums,lowr,uppr,specl);
-  if (ts=="FAIL") continue;
-  temp.push_back(ts);
+  if (ts.first=="FAIL"&&ts.second==-1LL) continue;
+  temp.push_back(ts.first);
   pos++;
  }
  return temp;
