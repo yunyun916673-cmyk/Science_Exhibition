@@ -1,0 +1,127 @@
+//rockyou_rulling.cpp
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
+#include <random>
+#include <cctype>
+using ll=long long;
+using namespace std;
+vector<string> run_rockyou(const string& S)
+{
+    ifstream fin("english_10514_top.txt");
+    vector<string> temp; string line; 
+    while (getline(fin,line))
+    {
+        if (!line.empty())
+        {
+            if (line.back()=='\n') line.pop_back();
+            if (line.back()=='\r') line.pop_back();
+        }
+        temp.push_back(line);
+    }
+    vector<string> Ans;
+    static mt19937 gen(random_device{}());
+    uniform_int_distribution<long long> dist1(1,1000);
+    uniform_int_distribution<long long> dist2(0,10513);
+    uniform_int_distribution<long long> dist3(1,100);
+    uniform_int_distribution<long long> dist4(0,9);
+    uniform_int_distribution<long long> dist5(1,12);
+    uniform_int_distribution<long long> dist6(1,30);
+    for (ll i=0LL;i<251;i++)
+    {
+        int where=dist1(gen);
+        string result="";
+        if (where<=187)
+        {
+            string a=temp[dist2(gen)];
+            string b=temp[dist2(gen)];
+            string c=temp[dist2(gen)];
+            result+=a; result+=b; result+=c;
+            int test=dist3(gen);
+        }
+        else if (where<=346)
+        {
+            string a=temp[dist2(gen)];
+            string b=temp[dist2(gen)];
+            result+=a; result+=b;
+        }
+        else if (where<=485)
+        {
+            for (ll j=0LL;j<6LL;j++)
+                result+=dist4(gen)+'0';
+            int test=dist3(gen);
+            if (test<=25)
+            {
+                result[2]='1';
+                result[3]='9';
+            }
+            else if (test<=40)
+            {
+                result[2]='2';
+                result[3]='0';
+            }
+            else if (test<=60)
+            {
+                int test1=dist5(gen),test2=dist6(gen);
+                string wtest1=to_string(test1);
+                string wtest2=to_string(test2);
+                if (test1<10) wtest1='0'+wtest1;
+                if (test2<10) wtest2='0'+wtest2;
+                result[2]=wtest1[0];result[3]=wtest1[1];
+                result[4]=wtest2[0];result[5]=wtest2[1];
+            }
+        }
+        else if (where<=583)
+        {
+            string a=temp[dist2(gen)];
+            string b=temp[dist2(gen)];
+            string c=temp[dist2(gen)];
+            string d=temp[dist2(gen)];
+            result+=a; result+=b;
+            result+=c; result+=d;
+        }
+        else if (where<=658)
+        {
+            result=temp[dist2(gen)];
+            result+=dist4(gen)+'0';
+            result+=dist4(gen)+'0';
+        }
+        else if (where<=719)
+        {
+            result=temp[dist2(gen)];
+        }
+        else if (where<=770)
+        {
+            result=temp[dist2(gen)];
+            result+=dist4(gen)+'0';
+        }
+        else
+        {
+            result=temp[dist2(gen)];
+            result+=temp[dist2(gen)];
+            result+=dist4(gen)+'0';
+        }
+        int test=dist3(gen);
+        if (test<=70)
+        {
+            for (char &ch:result)
+                if (isupper(ch)) ch=tolower(ch);
+        }
+        else if (test<=95)
+        {
+            for (char &ch:result)
+                if (isupper(ch)) ch=tolower(ch);
+            if (islower(result[0]))
+                result[0]=toupper(result[0]);
+                
+        }
+        else
+        {
+            for (char &ch:result)
+                if (islower(ch)) ch=toupper(ch);
+        }
+        Ans.push_back(result);
+    }
+    return Ans;
+}
