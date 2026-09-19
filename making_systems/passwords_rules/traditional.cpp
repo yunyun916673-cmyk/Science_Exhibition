@@ -7,10 +7,8 @@
 #include <utility>
 #include <random>
 #include <cctype>
-
 using ll=long long;
 using namespace std;
-
 struct markov
 {
  map<pair<int,int>,vector<int>> model;
@@ -87,9 +85,7 @@ void build_traditional(const string& fname)
   fout.write(reinterpret_cast<const char*>(nexts.data()),vec_size*sizeof(int));
  }
 }
-
 markov cursion;
-
 void load_traditional(const string& fname)
 {
  ifstream fin(fname,ios::binary);
@@ -109,21 +105,17 @@ void load_traditional(const string& fname)
   cursion.model[{fst,snd}]=nexts;
  }
 }
-pair<vector<string>,ll> run_traditional(const string& S,ll length,bool nums,bool lowr,bool uppr,bool specl,ll how_many)
+vector<string> run_traditional(const string& S,ll length,bool nums,bool lowr,bool uppr,bool specl,ll how_many)
 {
  if (cursion.model.empty()) load_traditional("traditional_map.bin");
-	
- static mt19937 gen{random_device{}()};
- ll where=uniform_int_distribution<ll>(0LL,how_many)(gen);
  vector<string> temp;
  ll pos=0LL;
  while (pos<how_many)
  {
-  auto [ts,cur]=cursion.getting(length,nums,lowr,uppr,specl);
-  if (ts=="FAIL"&&cur==-1LL) continue;
+  auto ts=cursion.getting(length,nums,lowr,uppr,specl);
+  if (ts=="FAIL") continue;
   temp.push_back(ts);
   pos++;
  }
- temp.insert(temp.begin()+where,S);
- return {temp,where};
+ return temp;
 }
