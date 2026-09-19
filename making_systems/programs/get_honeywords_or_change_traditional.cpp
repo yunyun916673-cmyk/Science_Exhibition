@@ -74,7 +74,7 @@ pair<vector<string>,ll> get_honeywords(const string& S,bool is_set)
     if(is_set) {changing(S);return {{},-2LL};}
     static mt19937 gen(random_device{}());
     vector<string> temp;
-    vector<string> list=run_traditional(S);
+    vector<string> list=run_traditional(S,length,nums,lowr,uppr,specl);
     auto add_to_temp=[&](const vector<string>& lst)
     {
         for(const string& word:lst)
